@@ -1,17 +1,16 @@
 pipeline {
-    agent any
-    // agent {
-    //     node {
-    //         label 'roboshop' 
-    //     } 
-    // }
+    agent {
+        node {
+            label 'roboshop' 
+        } 
+    }
     environment {
         COURSE = "Jenkins"
     }
-    // options {
-    //     disableConcurrentBuilds()
-    //     timeout(time: 5, unit: 'MINUTES')
-    // }
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 5, unit: 'MINUTES')
+    }
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
@@ -46,18 +45,18 @@ pipeline {
             }
         }
         stage('Deploy') {
-            // when {
-            //     expression { "${params.DEPLOY}" == "true" }
-            // }
+            when {
+                expression { "${params.DEPLOY}" == "true" }
+            }
 
-            /* input {
+            input {
                 message "Should we continue?"
                 ok "Yes, we should."
                 submitter "alice,bob"
                 parameters {
                     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 }
-            } */
+            }
             steps {
                 script{
                     sh """
